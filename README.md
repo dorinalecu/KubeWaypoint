@@ -3,27 +3,44 @@
 An engineer-reviewed AKS case-intake assistant that turns incomplete problem
 descriptions into structured investigation starting points.
 
-**Status:** Phase 0 - Engineering Foundation. This repository currently contains
-product documentation only. There is no runnable application yet.
+**Status:** Phase 1 - Domain foundation. The first increment introduces Go domain
+contracts, input validation, and tests. There is no analyzer or runnable HTTP
+service yet.
 
 ## Why KubeWaypoint?
 
-Support engineers often receive incomplete descriptions of complex issues.
-Before troubleshooting can begin, they need to normalize the problem, identify
-missing evidence, ask focused questions, and choose useful initial checks.
+Platform engineers, SREs, Kubernetes administrators, and support engineers often
+receive incomplete descriptions of complex issues. Before troubleshooting can
+begin, they need to normalize the problem, identify missing evidence, ask focused
+questions, and choose useful initial checks.
 
 KubeWaypoint aims to reduce repetitive intake work and make that process more
-consistent. It does not replace the engineer's technical judgment, customer
-relationship, or responsibility for the investigation.
+consistent. It does not replace the engineer's technical judgment or
+responsibility for the investigation. Here, "case intake" means structuring a
+reported technical problem, not integrating with an internal support system.
 
 The project also demonstrates a progression from AKS and cloud troubleshooting
 expertise to practical software engineering: Go services, explicit contracts,
 testing, observability, and eventually Python-based AI capabilities and
 cloud-native delivery.
 
-This is an independent portfolio project, not an official Microsoft product.
-Its implementation and documentation will be original, without importing
+This is an independent public portfolio project, not an official Microsoft
+product or a tool restricted to Microsoft employees. It requires no internal
+systems or privileged access. Its implementation and documentation will be
+original, using synthetic examples and licensed public references rather than
 internal procedures, support-pack content, or customer data from other projects.
+
+The product uses English for inputs, outputs, documentation, and interfaces.
+Multilingual analysis is outside the project scope.
+
+## Engineering foundation
+
+- [Architecture and MVP behavior](docs/architecture.md)
+- [ADR 0001: Go-first, deterministic, stateless MVP](docs/adr/0001-go-first-deterministic-stateless-mvp.md)
+- [Development guide](docs/development.md)
+- [Detailed roadmap](docs/roadmap.md)
+- [Incremental Phase 1 implementation plan](docs/phase-1-plan.md)
+- [Analysis contract, scoring, and synthetic scenarios](docs/analysis-contract.md)
 
 ## Product behavior
 
@@ -65,9 +82,11 @@ The first implementation milestone will provide:
   shutdown.
 - Unit and HTTP handler tests using synthetic case descriptions.
 
-The confidence score will describe support for a classification, not the
-probability of a root cause. Its exact scoring rules and limitations will be
-defined and tested during implementation.
+The confidence score describes support for a classification, not the probability
+of a root cause. The agreed rubric is 0 for unresolved classification, 0.5 for a
+tentative reported symptom, and 0.8 for an explicit reported symptom. Repetition
+does not increase the score, and active evidence in both supported categories
+resolves to unknown. See the [contract](docs/analysis-contract.md) for limitations.
 
 The MVP will run locally without cloud credentials or external AI calls. It will
 be stateless: analyses will not be stored in a database.
@@ -137,23 +156,24 @@ unused scaffolding or dependencies.
 
 ## Local development
 
-Phase 0 requires Git and a text editor. Phase 1 will additionally require a
-supported Go toolchain; the minimum Go version will be selected and recorded when
-the module is created.
+The Go module is at the repository root and requires Go 1.27.2 or newer.
+The initial validation toolchain is Go 1.27.2 on Windows amd64.
 
-There are no application run or test commands yet. Once the Go module exists,
-the baseline checks, run from its directory, will be:
+Run the following from the repository root:
 
 ```text
 gofmt -l .
+go build ./...
 go vet ./...
 go test ./...
 ```
 
 Formatting verification should report no files, and vet and tests must pass.
-Exact application startup instructions will be added with the runnable service.
-No Azure subscription, Python installation, Docker installation, or AI provider
-key is required for the first MVP.
+Build verifies the domain package; it does not produce an application executable.
+There is no application startup command yet. See the
+[development guide](docs/development.md) for using the locally installed Go
+toolchain without changing persistent PATH settings. No Azure subscription,
+Python installation, Docker installation, or AI provider key is required.
 
 ## Engineering and data-safety principles
 
@@ -171,9 +191,9 @@ key is required for the first MVP.
 - Use small, focused changes and conventional commit messages such as `docs:`,
   `feat:`, `fix:`, and `test:`.
 
-## Next foundation step
+## Next step
 
-Document the current and future architecture and record the decision to start
-with a Go-first, deterministic, stateless MVP. Then complete the local
-development guide, roadmap details, and the step-by-step Phase 1 plan before
-writing application code.
+Review the domain foundation and synthetic scenario expectations, then implement
+the deterministic analyzer in increment 2 of the
+[Phase 1 plan](docs/phase-1-plan.md) when requested. Do not implement later phases
+or install their dependencies in advance.
