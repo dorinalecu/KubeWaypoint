@@ -1,4 +1,4 @@
-# SupportIQ
+# KubeWaypoint
 
 An engineer-reviewed AKS case-intake assistant that turns incomplete problem
 descriptions into structured investigation starting points.
@@ -6,13 +6,13 @@ descriptions into structured investigation starting points.
 **Status:** Phase 0 - Engineering Foundation. This repository currently contains
 product documentation only. There is no runnable application yet.
 
-## Why SupportIQ?
+## Why KubeWaypoint?
 
 Support engineers often receive incomplete descriptions of complex issues.
 Before troubleshooting can begin, they need to normalize the problem, identify
 missing evidence, ask focused questions, and choose useful initial checks.
 
-SupportIQ aims to reduce repetitive intake work and make that process more
+KubeWaypoint aims to reduce repetitive intake work and make that process more
 consistent. It does not replace the engineer's technical judgment, customer
 relationship, or responsibility for the investigation.
 
@@ -21,12 +21,13 @@ expertise to practical software engineering: Go services, explicit contracts,
 testing, observability, and eventually Python-based AI capabilities and
 cloud-native delivery.
 
-This is an independent project. It is not affiliated with CaseIQ or Microsoft's
-SupportIQ case-data integration.
+This is an independent portfolio project, not an official Microsoft product.
+Its implementation and documentation will be original, without importing
+internal procedures, support-pack content, or customer data from other projects.
 
 ## Product behavior
 
-Given an unstructured AKS case description, SupportIQ will help the engineer:
+Given an unstructured AKS case description, KubeWaypoint will help the engineer:
 
 - Restate the reported issue concisely.
 - Identify a likely technical category.
@@ -79,6 +80,17 @@ be stateless: analyses will not be stored in a database.
 - Dockerfiles, Kubernetes manifests, Terraform, or Azure infrastructure.
 - GitHub Actions workflows, GitOps, or a service mesh.
 - Autonomous diagnostic execution or customer communication.
+
+## Project boundary
+
+KubeWaypoint focuses on case intake and initial troubleshooting plans. Assessing
+cluster upgrade readiness is a separate product concern, not a capability
+promised by this project's roadmap.
+
+[KubeUpgradeCompass](https://github.com/dorinalecu/KubeUpgradeCompass) is a
+separate, planned portfolio project for evidence-based AKS upgrade-readiness
+assessment. It has no implementation yet and is deferred while KubeWaypoint is
+developed. Neither project requires the other to run.
 
 ## Architecture direction
 
